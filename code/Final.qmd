@@ -11,6 +11,7 @@ format: html
 library(tidyverse)
 library(janitor)
 library(dplyr)
+library(PNWColors)
 ```
 
 \[Rendered Output\]
@@ -53,4 +54,26 @@ sst_clean |>
 
 # Show structure
 str(sst_clean)
+```
+
+## b. Visualize the Data
+
+```{r}
+sst_clean |> 
+  filter(year %in% 2018:2023) |>
+  mutate(year = factor(year)) |> 
+ggplot(aes(x = month,
+           y = mean_monthly_sst,
+           color = year,
+           group = year))+
+  geom_point()+
+  geom_line()+
+  labs(x = "Month",
+       y = "Mean monthly sea surface temperature (°C)") +
+  theme_minimal()+
+  scale_color_manual(values = pnw_palette("Starfish", 6))+
+  theme(
+    legend.position = c(0.2, 0.7),
+    panel.grid = element_blank(),
+    axis.line = element_line(color = "grey50"))
 ```
