@@ -8,9 +8,9 @@ format: html
 ##Read in packages
 
 ```{r}
-library()
-library()
-library()
+library(tidyverse)
+library(janitor)
+library(dplyr)
 ```
 
 \[Rendered Output\]
@@ -32,7 +32,25 @@ The average load of nitrogen in kg per year is significant between sources(urban
 # Problem 2 data visualization
 
 ```{r}
+#read in data
 sst <- read.csv("/Users/evancooper/Desktop/GitHub/ENVS-193DS_spring-2025_final/data/SST_update2023.csv")
+```
 
+## a. Cleaning and Summarizing
 
+```{r}
+sst_clean <- sst |> #change df
+  clean_names() |> 
+  mutate(year = year(date),
+         month = month(date),
+         month = month(date, label = TRUE, abbr = TRUE)) |> #get month and year in seperate column
+  select(year, month, temp) |> 
+  group_by(year, month) |> 
+  summarize(mean_monthly_sst = mean(temp)) #find mean of sst and make column
+
+sst_clean |> 
+  slice_sample(n = 5) #show 5 columns
+
+# Show structure
+str(sst_clean)
 ```
