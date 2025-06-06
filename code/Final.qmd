@@ -1,0 +1,38 @@
+---
+title: "Final"
+format: html
+---
+
+[Github Repository](https://github.com/cooperevan/ENVS-193DS_spring-2025_final.git)
+
+##Read in packages
+
+```{r}
+library()
+library()
+library()
+```
+
+\[Rendered Output\]
+
+# Problem 1. Research Writing 
+
+## a. Transparent statistical methods
+
+In part one, they used a pearson correlation test, with the word "correlation" as evidence of so. In part two, they used a one-way ANOVA since there are multiple groups they are testing for one factor or variable, nitrogen load.
+
+## b. More info needed
+
+If you use an ANOVA test, you'll know that two groups are different, but you won't know which ones are different. Two things that could be included to add context to the anova is an F statistic, which is used to evaluate significance and helps us find our p-value to determine if we should reject or accept the null. Another important test to include is a shapiro-wilks normality test, to determine normality which is important since the assumption of an anova requires a normal distribution of the variables.
+
+## **c. Suggestions for rewriting**
+
+The average load of nitrogen in kg per year is significant between sources(urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) (one-way ANOVA, F = F distribution, df = degrees of freedom, p = 0.02). Sites located farther from from the headwaters have a higher annual total nitrogen load than those closer (Pearson correlation test, r = correlation coefficient, p = 0.03, a = significance level, n = sample size).
+
+# Problem 2 data visualization
+
+```{r}
+sst <- read.csv("/Users/evancooper/Desktop/GitHub/ENVS-193DS_spring-2025_final/data/SST_update2023.csv")
+
+
+```
