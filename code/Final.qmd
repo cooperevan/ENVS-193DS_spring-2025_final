@@ -1,13 +1,15 @@
 ---
-title: "Final"
+title: "Final- Evan Cooper"
 format: html
+name: Evan Cooper
+date: 6/06/25
 ---
 
 [Github Repository](https://github.com/cooperevan/ENVS-193DS_spring-2025_final.git)
 
-##Read in packages
+Read in packages
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(janitor)
 library(dplyr)
@@ -30,22 +32,23 @@ If you use an ANOVA test, you'll know that two groups are different, but you won
 
 The average load of nitrogen in kg per year is significant between sources(urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) (one-way ANOVA, F = F distribution, df = degrees of freedom, p = 0.02). Sites located farther from from the headwaters have a higher annual total nitrogen load than those closer (Pearson correlation test, r = correlation coefficient, p = 0.03, a = significance level, n = sample size).
 
-# Problem 2 data visualization
+# Problem 2. data visualization
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 #read in data
 sst <- read.csv("/Users/evancooper/Desktop/GitHub/ENVS-193DS_spring-2025_final/data/SST_update2023.csv")
 ```
 
 ## a. Cleaning and Summarizing
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 sst_clean <- sst |> #change df
   clean_names() |> 
   mutate(year = year(date),
          month = month(date),
          month = month(date, label = TRUE, abbr = TRUE)) |> #get month and year in seperate column
-  select(year, month, temp) |> 
+  select(year, month, temp) |>
+  filter(year %in% 2018:2023) |> 
   group_by(year, month) |> 
   summarize(mean_monthly_sst = mean(temp)) #find mean of sst and make column
 
@@ -58,7 +61,7 @@ str(sst_clean)
 
 ## b. Visualize the Data
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 sst_clean |> 
   filter(year %in% 2018:2023) |>
   mutate(year = factor(year)) |> 
@@ -77,3 +80,91 @@ ggplot(aes(x = month,
     panel.grid = element_blank(),
     axis.line = element_line(color = "grey50"))
 ```
+
+# Problem 3. Data Analysis
+
+#### **a. Response variable (2 points)**
+
+In 1-2 sentences, explain what the 1s and 0s mean in this data set biologically.
+
+#### **b. Purpose of study (2 points)**
+
+The authors compare nest box occupancy between 3 species: Swift Parrots, Common Starlings, and Tree Martins. In 1-2 sentences, explain the main difference between Swift Parrots and the other two species in the context of this study.
+
+#### **c. Difference in “seasons” (2 points)**
+
+The authors compare two years (that they refer to as “seasons”). In 1-2 sentences, define what those years/seasons are, and explain how they differ in the context of this study.
+
+#### **d. Table of models (10 points)**
+
+Make a table of all the models you will need to run. You will run 4 models: a null model, a saturated model, and two other models with different combinations of predictors.
+
+Stuck on how to create a table? See workshop 8 for an example.
+
+Your table should have 4 columns: (1) model number, (2) season, (3) distance to forest edge, and (4) model description.
+
+#### **e. Run the models (8 points)**
+
+Write your code to run all your models. Do not display any output.
+
+#### **f. Check the diagnostics (6 points)**
+
+Check your diagnostics for all models using simulated residuals from the `DHARMa` package.
+
+Display the diagnostic plots for each model.
+
+#### **g. Select the best model (6 points)**
+
+Using Akaike’s Information Criterion (AIC) from the `MuMIn` package, choose the best model.
+
+In text, write what the best model was (i.e. “The best model as determined by Akaike’s Information Criterion (AIC)…”).
+
+**Use the predictors and the response variable to describe the model**, not the model number that you assigned.
+
+#### **h. Visualize the model predictions (24 points)**
+
+Create a plot showing model predictions with 95% confidence intervals and the underlying data.
+
+Show and annotate all code. Show the output.
+
+For full credit:
+
+-   make sure the x- and y-axis labels are written in full
+
+-   take out the gridlines
+
+-   use colors that are different from the default
+
+#### **i. Write a caption for your figure. (7 points)**
+
+Include a figure number, title, description of the figure, and data citation.
+
+#### **j. Calculate model predictions (4 points)**
+
+Calculate the predicted probabilities of Swift Parrot nest box occupancy with 95% at 0 m from forest edge and 900 m from forest edge for each level in `season`.
+
+Show and annotate all code. Display the output.
+
+#### **k. Interpret your results (16 points)**
+
+Write 3-5 sentences summarizing what you found, making references to the figure you made in part h and the predictions you calculated in part j. Your summary should include your interpretation of:
+
+-   the predicted probability of occupancy at the forest edge (0 m) and farther away from the forest edge (900 m) between seasons
+
+-   the relationship between distance from forest edge and probability of occupancy
+
+-   the biology behind the trends you found - what explains the relationship between distance from forest edge and probability of Swift Parrot nest box occupancy?
+
+# **Problem 4. Affective and exploratory visualizations**
+
+## a. compare and contrast
+
+![Exploratory Visual](images/Screenshot 2025-06-06 at 5.20.51 PM.png){width="600"}
+
+In my exploratory data set I started off by comparing my workout ***duration*** to hours of sleep, while my affective visual compares workout ***type*** to hours asleep. The only similarity is the large standard deviation between exercises, due to the low number of observations.
+
+Patterns in the visualization that are consistent are the push and rest days having the most sleep. Its hard to see trends in the data since the exploratory visualization is missing points and isn't focused on the mean of the data, while the affective visualization showcases the mean with the ridges.
+
+Advice I gathered from my peers was how simple the data was to follow and easy to digest for my affective visualization which I chose not to over-complicate with more data.
+
+![Affective visual](images/workout_plot.png){fig-align="right" width="600"}
