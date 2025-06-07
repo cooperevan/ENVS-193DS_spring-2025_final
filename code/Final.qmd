@@ -1,15 +1,20 @@
 ---
-title: "Final- Evan Cooper"
+title: "Final"
 format: html
-name: Evan Cooper
+author: Evan Cooper
 date: 6/06/25
+toc: TRUE
+toc-title: Table of Contents
+toc-location: left
+execute: 
+  warning: FALSE
+  message: FALSE
 ---
 
 [Github Repository](https://github.com/cooperevan/ENVS-193DS_spring-2025_final.git)
 
-Read in packages
-
-```{r, message=FALSE, warning=FALSE}
+```{r}
+#read in packages
 library(tidyverse)
 library(janitor)
 library(dplyr)
@@ -18,7 +23,7 @@ library(PNWColors)
 
 \[Rendered Output\]
 
-# Problem 1. Research Writing 
+# Problem 1. Research Writing
 
 ## a. Transparent statistical methods
 
@@ -28,20 +33,21 @@ In part one, they used a pearson correlation test, with the word "correlation" a
 
 If you use an ANOVA test, you'll know that two groups are different, but you won't know which ones are different. Two things that could be included to add context to the anova is an F statistic, which is used to evaluate significance and helps us find our p-value to determine if we should reject or accept the null. Another important test to include is a shapiro-wilks normality test, to determine normality which is important since the assumption of an anova requires a normal distribution of the variables.
 
-## **c. Suggestions for rewriting**
+## c. Suggestions for rewriting
 
 The average load of nitrogen in kg per year is significant between sources(urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) (one-way ANOVA, F = F distribution, df = degrees of freedom, p = 0.02). Sites located farther from from the headwaters have a higher annual total nitrogen load than those closer (Pearson correlation test, r = correlation coefficient, p = 0.03, a = significance level, n = sample size).
 
 # Problem 2. data visualization
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 #read in data
 sst <- read.csv("/Users/evancooper/Desktop/GitHub/ENVS-193DS_spring-2025_final/data/SST_update2023.csv")
 ```
 
 ## a. Cleaning and Summarizing
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
+#clean and wrangle
 sst_clean <- sst |> #change df
   clean_names() |> 
   mutate(year = year(date),
@@ -61,7 +67,8 @@ str(sst_clean)
 
 ## b. Visualize the Data
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
+#visualize
 sst_clean |> 
   filter(year %in% 2018:2023) |>
   mutate(year = factor(year)) |> 
@@ -83,19 +90,19 @@ ggplot(aes(x = month,
 
 # Problem 3. Data Analysis
 
-#### **a. Response variable (2 points)**
+## a. Response variable (2 points)
 
 In 1-2 sentences, explain what the 1s and 0s mean in this data set biologically.
 
-#### **b. Purpose of study (2 points)**
+## b. Purpose of study (2 points)
 
 The authors compare nest box occupancy between 3 species: Swift Parrots, Common Starlings, and Tree Martins. In 1-2 sentences, explain the main difference between Swift Parrots and the other two species in the context of this study.
 
-#### **c. Difference in “seasons” (2 points)**
+## c. Difference in “seasons” (2 points)
 
 The authors compare two years (that they refer to as “seasons”). In 1-2 sentences, define what those years/seasons are, and explain how they differ in the context of this study.
 
-#### **d. Table of models (10 points)**
+## d. Table of models (10 points)
 
 Make a table of all the models you will need to run. You will run 4 models: a null model, a saturated model, and two other models with different combinations of predictors.
 
@@ -103,25 +110,25 @@ Stuck on how to create a table? See workshop 8 for an example.
 
 Your table should have 4 columns: (1) model number, (2) season, (3) distance to forest edge, and (4) model description.
 
-#### **e. Run the models (8 points)**
+## e. Run the models (8 points)
 
 Write your code to run all your models. Do not display any output.
 
-#### **f. Check the diagnostics (6 points)**
+## f. Check the diagnostics (6 points)
 
 Check your diagnostics for all models using simulated residuals from the `DHARMa` package.
 
 Display the diagnostic plots for each model.
 
-#### **g. Select the best model (6 points)**
+## g. Select the best model (6 points)
 
 Using Akaike’s Information Criterion (AIC) from the `MuMIn` package, choose the best model.
 
 In text, write what the best model was (i.e. “The best model as determined by Akaike’s Information Criterion (AIC)…”).
 
-**Use the predictors and the response variable to describe the model**, not the model number that you assigned.
+Use the predictors and the response variable to describe the model, not the model number that you assigned.
 
-#### **h. Visualize the model predictions (24 points)**
+## h. Visualize the model predictions (24 points)
 
 Create a plot showing model predictions with 95% confidence intervals and the underlying data.
 
@@ -135,17 +142,17 @@ For full credit:
 
 -   use colors that are different from the default
 
-#### **i. Write a caption for your figure. (7 points)**
+## i. Write a caption for your figure. (7 points)
 
 Include a figure number, title, description of the figure, and data citation.
 
-#### **j. Calculate model predictions (4 points)**
+## j. Calculate model predictions (4 points)
 
 Calculate the predicted probabilities of Swift Parrot nest box occupancy with 95% at 0 m from forest edge and 900 m from forest edge for each level in `season`.
 
 Show and annotate all code. Display the output.
 
-#### **k. Interpret your results (16 points)**
+## k. Interpret your results (16 points)
 
 Write 3-5 sentences summarizing what you found, making references to the figure you made in part h and the predictions you calculated in part j. Your summary should include your interpretation of:
 
@@ -155,11 +162,11 @@ Write 3-5 sentences summarizing what you found, making references to the figure 
 
 -   the biology behind the trends you found - what explains the relationship between distance from forest edge and probability of Swift Parrot nest box occupancy?
 
-# **Problem 4. Affective and exploratory visualizations**
+# Problem 4. Affective and exploratory visualizations
 
 ## a. compare and contrast
 
-![Exploratory Visual](images/Screenshot 2025-06-06 at 5.20.51 PM.png){width="600"}
+![Exploratory Visualization](images/5DC2FDE4-F331-418D-8405-D6130DFD688B.png){fig-align="left" width="600"}
 
 In my exploratory data set I started off by comparing my workout ***duration*** to hours of sleep, while my affective visual compares workout ***type*** to hours asleep. The only similarity is the large standard deviation between exercises, due to the low number of observations.
 
@@ -168,3 +175,13 @@ Patterns in the visualization that are consistent are the push and rest days hav
 Advice I gathered from my peers was how simple the data was to follow and easy to digest for my affective visualization which I chose not to over-complicate with more data.
 
 ![Affective visual](images/workout_plot.png){fig-align="right" width="600"}
+
+## b. Share Affective Visual
+
+<i class="fa-solid fa-fish"></i> Sea Surface Temperature
+
+::: callout-note
+## Thank you
+
+I wanted to thank you for help this quarter, I truly feel like I learned an insane amount of coding. I did my best to knock the final out of the park, in order to show that even with quite a few of stumbles I still had the capability to pass the class.
+:::
