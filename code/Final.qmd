@@ -19,6 +19,9 @@ library(tidyverse)
 library(janitor)
 library(dplyr)
 library(PNWColors)
+library(gt)
+library(MuMIn)
+library(DHARMa)
 ```
 
 \[Rendered Output\]
@@ -35,7 +38,7 @@ If you use an ANOVA test, you'll know that two groups are different, but you won
 
 ## c. Suggestions for rewriting
 
-The average load of nitrogen in kg per year is significant between sources(urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) (one-way ANOVA, F = F distribution, df = degrees of freedom, p = 0.02). Sites located farther from from the headwaters have a higher annual total nitrogen load than those closer (Pearson correlation test, r = correlation coefficient, p = 0.03, a = significance level, n = sample size).
+The average load of nitrogen in kg per year is significant between sources (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) (one-way ANOVA, F = F distribution, df = degrees of freedom, p = 0.02). Sites located farther from from the headwaters have a higher annual total nitrogen load than those closer (Pearson correlation test, r = correlation coefficient, p = 0.03, a = significance level, n = sample size).
 
 # Problem 2. data visualization
 
@@ -90,35 +93,81 @@ ggplot(aes(x = month,
 
 # Problem 3. Data Analysis
 
-## a. Response variable (2 points)
+## a. Response variable
 
-In 1-2 sentences, explain what the 1s and 0s mean in this data set biologically.
+```{r}
+nest_boxes <- read.csv("/Users/evancooper/Desktop/GitHub/ENVS-193DS_spring-2025_final/data/occdist.csv") |> 
+  clean_names()
+```
 
-## b. Purpose of study (2 points)
+The ones and zeros in the data sheet mean that the nest was either occupied or unoccupied by that species, the common starling, tree martin, parrot, or empty.
 
-The authors compare nest box occupancy between 3 species: Swift Parrots, Common Starlings, and Tree Martins. In 1-2 sentences, explain the main difference between Swift Parrots and the other two species in the context of this study.
+## b. Purpose of study
 
-## c. Difference in “seasons” (2 points)
+Swift parrots are native and at risk of extinction in Australia. They also rarely nest in the same area twice, meaning there's competition with other species. Tree martins and Starlings are competitors to Swift Parrots. While there is no study of the aggressiveness of swift parrots, the authors have seen starlings destroy swift parrot eggs.
 
-The authors compare two years (that they refer to as “seasons”). In 1-2 sentences, define what those years/seasons are, and explain how they differ in the context of this study.
+## c. Difference in “seasons”
 
-## d. Table of models (10 points)
+The seasons are the summer breeding season of 2016 and 2019, the first is when the nest boxes were first deployed, and 2019 when they were established.
 
-Make a table of all the models you will need to run. You will run 4 models: a null model, a saturated model, and two other models with different combinations of predictors.
+## d. Table of models
 
-Stuck on how to create a table? See workshop 8 for an example.
+4 models total:
 
-Your table should have 4 columns: (1) model number, (2) season, (3) distance to forest edge, and (4) model description.
+| Model number | Season | Distance to forest edge | Model description |
+|:------------:|:------:|:-----------------------:|:-----------------:|
+|      1       |        |                         |    Null Model     |
+|      2       |   X    |                         |   Season Model    |
+|      3       |        |            X            |     DFE Model     |
+|      4       |   X    |            X            |  Saturated Model  |
+
+```{r}
+clean_data <- nest_boxes |> 
+  select(box, season, edge_distance, box_occupant) |> 
+  mutate(box_occupant = as_factor(box_occupant)) 
+  str(clean_data)
+  slice_sample(clean_data, n = 10)
+```
 
 ## e. Run the models (8 points)
 
 Write your code to run all your models. Do not display any output.
+
+```{r, include=FALSE}
+model1 = lm(
+  sp ~ 1,
+  data = nest_boxes
+)
+
+model2 = lm(
+  sp ~ 1 + season,
+  data = nest_boxes
+)
+
+model3 = lm(
+  sp ~ 1 + edge_distance,
+  data = nest_boxes
+)
+
+model4 = lm(
+  sp ~ 1 + edge_distance + season,
+  data = nest_boxes
+)
+```
 
 ## f. Check the diagnostics (6 points)
 
 Check your diagnostics for all models using simulated residuals from the `DHARMa` package.
 
 Display the diagnostic plots for each model.
+
+```{r}
+par(mfrow = c(2,2))
+plot(model1)
+plot(model2)
+plot(model3)
+plot(model4)
+```
 
 ## g. Select the best model (6 points)
 
@@ -178,10 +227,8 @@ Advice I gathered from my peers was how simple the data was to follow and easy t
 
 ## b. Share Affective Visual
 
-<i class="fa-solid fa-fish"></i> Sea Surface Temperature
-
 ::: callout-note
 ## Thank you
 
-I wanted to thank you for help this quarter, I truly feel like I learned an insane amount of coding. I did my best to knock the final out of the park, in order to show that even with quite a few of stumbles I still had the capability to pass the class.
+I wanted to thank you for help this quarter, I truly feel like I learned an insane amount of coding. I did my best to knock the final out of the park in order to show that even with a few of stumbles I still had the capability to succeed in the class.
 :::
