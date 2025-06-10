@@ -203,16 +203,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # Groups:   year [6]
     year month mean_monthly_sst
    &lt;dbl&gt; &lt;ord&gt;            &lt;dbl&gt;
- 1  2018 Jan               15.0
+ 1  2018 Dec               15.6
  2  2018 Feb               14.3
- 3  2018 Nov               17.9
- 4  2018 Dec               15.6
- 5  2018 Jun               15.5
- 6  2019 Aug               17.0
+ 3  2018 Mar               13.5
+ 4  2018 Aug               19.6
+ 5  2018 Apr               12.8
+ 6  2019 Apr               13.7
  7  2019 Dec               15.0
- 8  2019 Jun               15.8
- 9  2019 Oct               17.1
-10  2019 Apr               13.7
+ 8  2019 Mar               13.6
+ 9  2019 Jun               15.8
+10  2019 May               14.3
 # ℹ 20 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show structure</span></span>
@@ -252,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Month"</span>,</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Mean monthly sea surface temperature (°C)"</span>) <span class="sc">+</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">pnw_palette</span>(<span class="st">"Starfish"</span>, <span class="dv">6</span>))<span class="sc">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">"skyblue"</span>, <span class="st">"darkblue"</span>))(<span class="dv">6</span>))<span class="sc">+</span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.7</span>),</span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
@@ -339,16 +339,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(clean_data, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        box season edge_distance    box_occupant
-1  boxrh116   2019           309    swift parrot
-2   boxrh97   2019           118    swift parrot
-3   boxrh70   2019           135 common starling
-4   boxrh04   2019           808     tree martin
-5  boxrh114   2016           373     tree martin
-6  boxrh129   2016           577     tree martin
-7   boxrh31   2019           718     tree martin
-8  boxrh103   2019           145 common starling
-9   boxrh84   2019           370    swift parrot
-10 boxrh114   2019           373 common starling</code></pre>
+1   boxrh70   2016           135     tree martin
+2   boxrh12   2019           697     tree martin
+3  boxrh117   2019           296 common starling
+4  boxrh134   2016           277    swift parrot
+5  boxrh128   2019           544     tree martin
+6   boxrh69   2016           115     tree martin
+7   boxrh95   2016           114    swift parrot
+8  boxrh135   2019           250    swift parrot
+9   boxrh42   2019           731     tree martin
+10  boxrh55   2019            84 common starling</code></pre>
 </div>
 </div>
 </section>
@@ -401,6 +401,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Using Akaike’s Information Criterion (AIC) from the&nbsp;<code>MuMIn</code>&nbsp;package, choose the best model.</p>
 <p>In text, write what the best model was (i.e.&nbsp;“The best model as determined by Akaike’s Information Criterion (AIC)…”).</p>
 <p>Use the predictors and the response variable to describe the model, not the model number that you assigned.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(model1,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>     model2,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>     model3,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>     model4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       df     AICc
+model1  2 245.0324
+model2  3 242.5425
+model3  3 235.9030
+model4  4 232.5485</code></pre>
+</div>
+</div>
 </section>
 <section id="h.-visualize-the-model-predictions-24-points" class="level2">
 <h2 class="anchored" data-anchor-id="h.-visualize-the-model-predictions-24-points">h. Visualize the model predictions (24 points)</h2>

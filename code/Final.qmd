@@ -22,6 +22,8 @@ library(PNWColors)
 library(gt)
 library(MuMIn)
 library(DHARMa)
+library(ggplot2)
+library(ggeffects)
 ```
 
 \[Rendered Output\]
@@ -129,11 +131,12 @@ clean_data <- nest_boxes |>
   slice_sample(clean_data, n = 10)
 ```
 
-## e. Run the models (8 points)
+## e. Run the models
 
 Write your code to run all your models. Do not display any output.
 
-```{r, include=FALSE}
+```{r, echo=FALSE}
+
 model1 = lm(
   sp ~ 1,
   data = nest_boxes
@@ -162,6 +165,7 @@ Check your diagnostics for all models using simulated residuals from the `DHARM
 Display the diagnostic plots for each model.
 
 ```{r}
+#diagnistics
 par(mfrow = c(2,2))
 plot(model1)
 plot(model2)
@@ -169,7 +173,7 @@ plot(model3)
 plot(model4)
 ```
 
-## g. Select the best model (6 points)
+## g. Select the best model
 
 Using Akaike’s Information Criterion (AIC) from the `MuMIn` package, choose the best model.
 
@@ -177,14 +181,17 @@ In text, write what the best model was (i.e. “The best model as determined by
 
 Use the predictors and the response variable to describe the model, not the model number that you assigned.
 
+The best model as determined by Akaike's Information Criterion (AIC) is the saturated model (model 4). The response variable was if there was swift parrot occupancy using the nest box, and the predictors were the season (2016 or 2019) and distance to the edge of the forest.
+
 ```{r}
+#Choosing the best model
 AICc(model1,
      model2,
      model3,
      model4)
 ```
 
-## h. Visualize the model predictions (24 points)
+## h. Visualize the model predictions
 
 Create a plot showing model predictions with 95% confidence intervals and the underlying data.
 
@@ -194,9 +201,19 @@ For full credit:
 
 -   make sure the x- and y-axis labels are written in full
 
--   take out the gridlines
+-   take out the grid lines
 
 -   use colors that are different from the default
+
+```{r}
+#Model predictions
+model4_predictions <- ggpredict(
+  model4, # model object
+  terms = c("season", "edge_distance") # predictors
+) 
+
+view(model4_predictions)  
+```
 
 ## i. Write a caption for your figure. (7 points)
 
