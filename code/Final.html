@@ -99,12 +99,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#c.-difference-in-seasons" id="toc-c.-difference-in-seasons" class="nav-link" data-scroll-target="#c.-difference-in-seasons">c.&nbsp;Difference in “seasons”</a></li>
   <li><a href="#d.-table-of-models" id="toc-d.-table-of-models" class="nav-link" data-scroll-target="#d.-table-of-models">d.&nbsp;Table of models</a></li>
   <li><a href="#e.-run-the-models" id="toc-e.-run-the-models" class="nav-link" data-scroll-target="#e.-run-the-models">e. Run the models</a></li>
-  <li><a href="#f.-check-the-diagnostics-6-points" id="toc-f.-check-the-diagnostics-6-points" class="nav-link" data-scroll-target="#f.-check-the-diagnostics-6-points">f.&nbsp;Check the diagnostics (6 points)</a></li>
+  <li><a href="#f.-check-the-diagnostics" id="toc-f.-check-the-diagnostics" class="nav-link" data-scroll-target="#f.-check-the-diagnostics">f.&nbsp;Check the diagnostics</a></li>
   <li><a href="#g.-select-the-best-model" id="toc-g.-select-the-best-model" class="nav-link" data-scroll-target="#g.-select-the-best-model">g. Select the best model</a></li>
   <li><a href="#h.-visualize-the-model-predictions" id="toc-h.-visualize-the-model-predictions" class="nav-link" data-scroll-target="#h.-visualize-the-model-predictions">h. Visualize the model predictions</a></li>
   <li><a href="#i.-write-a-caption-for-your-figure." id="toc-i.-write-a-caption-for-your-figure." class="nav-link" data-scroll-target="#i.-write-a-caption-for-your-figure.">i. Write a caption for your figure.</a></li>
-  <li><a href="#j.-calculate-model-predictions-4-points" id="toc-j.-calculate-model-predictions-4-points" class="nav-link" data-scroll-target="#j.-calculate-model-predictions-4-points">j. Calculate model predictions (4 points)</a></li>
-  <li><a href="#k.-interpret-your-results-16-points" id="toc-k.-interpret-your-results-16-points" class="nav-link" data-scroll-target="#k.-interpret-your-results-16-points">k. Interpret your results (16 points)</a></li>
+  <li><a href="#j.-calculate-model-predictions" id="toc-j.-calculate-model-predictions" class="nav-link" data-scroll-target="#j.-calculate-model-predictions">j. Calculate model predictions</a></li>
+  <li><a href="#k.-interpret-your-results" id="toc-k.-interpret-your-results" class="nav-link" data-scroll-target="#k.-interpret-your-results">k. Interpret your results</a></li>
   </ul></li>
   <li><a href="#problem-4.-affective-and-exploratory-visualizations" id="toc-problem-4.-affective-and-exploratory-visualizations" class="nav-link" data-scroll-target="#problem-4.-affective-and-exploratory-visualizations">Problem 4. Affective and exploratory visualizations</a>
   <ul class="collapse">
@@ -161,8 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DHARMa)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>[Rendered Output]</p>
 <section id="problem-1.-research-writing" class="level1">
@@ -207,16 +206,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # Groups:   year [6]
     year month mean_monthly_sst
    &lt;dbl&gt; &lt;ord&gt;            &lt;dbl&gt;
- 1  2018 Oct               18.5
- 2  2018 Nov               17.9
+ 1  2018 Nov               17.9
+ 2  2018 Feb               14.3
  3  2018 May               13.6
- 4  2018 Sep               18.2
- 5  2018 Dec               15.6
+ 4  2018 Jul               18.2
+ 5  2018 Jun               15.5
  6  2019 May               14.3
- 7  2019 Feb               14.1
- 8  2019 Jun               15.8
- 9  2019 Jan               14.7
-10  2019 Nov               16.8
+ 7  2019 Jun               15.8
+ 8  2019 Aug               17.0
+ 9  2019 Sep               18.8
+10  2019 Feb               14.1
 # ℹ 20 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show structure</span></span>
@@ -275,10 +274,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Problem 3. Data Analysis</h1>
 <section id="a.-response-variable" class="level2">
 <h2 class="anchored" data-anchor-id="a.-response-variable">a. Response variable</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nest_boxes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/evancooper/Desktop/GitHub/ENVS-193DS_spring-2025_final/data/occdist.csv"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>The ones and zeros in the data sheet mean that the nest was either occupied or unoccupied by that species, the common starling, tree martin, parrot, or empty.</p>
 </section>
 <section id="b.-purpose-of-study" class="level2">
@@ -312,13 +307,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: center;">2</td>
 <td style="text-align: center;">X</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">Season Model</td>
+<td style="text-align: center;">Season</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">3</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;">X</td>
-<td style="text-align: center;">DFE Model</td>
+<td style="text-align: center;">Edge Distance</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">4</td>
@@ -328,48 +323,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> nest_boxes <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(box, season, edge_distance, box_occupant)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>sp_data <span class="ot">&lt;-</span> nest_boxes <span class="sc">|&gt;</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(box, season, edge_distance, sp)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>(clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   227 obs. of  4 variables:
- $ box          : chr  "boxrh00" "boxrh49" "boxrh55" "boxrh56" ...
- $ season       : int  2016 2016 2016 2016 2016 2016 2016 2019 2019 2019 ...
- $ edge_distance: int  287 35 84 128 152 92 51 222 160 145 ...
- $ box_occupant : chr  "common starling" "common starling" "common starling" "common starling" ...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(clean_data, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>        box season edge_distance    box_occupant
-1  boxrh109   2016           435    swift parrot
-2  boxrh134   2016           277    swift parrot
-3   boxrh93   2019            40 common starling
-4   boxrh02   2016           866     tree martin
-5   boxrh12   2019           697     tree martin
-6   boxrh70   2016           135     tree martin
-7  boxrh116   2019           309 common starling
-8   boxrh69   2016           115     tree martin
-9  boxrh129   2019           577     tree martin
-10  boxrh09   2016           735    swift parrot</code></pre>
-</div>
-</div>
 </section>
 <section id="e.-run-the-models" class="level2">
 <h2 class="anchored" data-anchor-id="e.-run-the-models">e. Run the models</h2>
 <p>Write your code to run all your models. Do not display any output.</p>
 </section>
-<section id="f.-check-the-diagnostics-6-points" class="level2">
-<h2 class="anchored" data-anchor-id="f.-check-the-diagnostics-6-points">f.&nbsp;Check the diagnostics (6 points)</h2>
+<section id="f.-check-the-diagnostics" class="level2">
+<h2 class="anchored" data-anchor-id="f.-check-the-diagnostics">f.&nbsp;Check the diagnostics</h2>
 <p>Check your diagnostics for all models using simulated residuals from the&nbsp;<code>DHARMa</code>&nbsp;package.</p>
 <p>Display the diagnostic plots for each model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#diagnistics</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#diagnistics</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -377,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -385,7 +350,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -393,7 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -406,45 +371,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="g.-select-the-best-model" class="level2">
 <h2 class="anchored" data-anchor-id="g.-select-the-best-model">g. Select the best model</h2>
 <p>Using Akaike’s Information Criterion (AIC) from the&nbsp;<code>MuMIn</code>&nbsp;package, choose the best model.</p>
-<p>The best model as determined by Akaike’s Information Criterion (AIC) is the saturated model (model 4). The response variable was if there was swift parrot occupancy using the nest box, and the predictors were the season (2016 or 2019) and distance to the edge of the forest.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Choosing the best model</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(model1,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>     model2,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>     model3,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>     model4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Choosing the best model</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(model1,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>     model2,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>     model3,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>     model4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       df     AICc
-model1  2 245.0324
-model2  3 242.5425
-model3  3 235.9030
-model4  4 232.5485</code></pre>
+model1  1 238.8318
+model2  2 236.3744
+model3  2 229.6716
+model4  3 226.3133</code></pre>
 </div>
 </div>
+<p>The best model as determined by Akaike’s Information Criterion (AIC) is the saturated model (model 4). The response variable was if there was swift parrot occupancy using the nest box, and the predictors were the season (2016 or 2019) and distance to the edge of the forest.</p>
 </section>
 <section id="h.-visualize-the-model-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="h.-visualize-the-model-predictions">h. Visualize the model predictions</h2>
 <p>Create a plot showing model predictions with 95% confidence intervals and the underlying data.</p>
 <p>Show and annotate all code. Show the output.</p>
-<p>For full credit:</p>
-<ul>
-<li><p>make sure the x- and y-axis labels are written in full</p></li>
-<li><p>take out the grid lines</p></li>
-<li><p>use colors that are different from the default</p></li>
-</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model4_pred <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(model4,</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"edge_distance"</span>, <span class="st">"season"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">distance =</span> x, <span class="at">season =</span> group)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(model4_pred)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot visual</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sp_data,</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> edge_distance,</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> sp))<span class="sc">+</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> model4_pred,</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> distance,</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> predicted))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#prediction</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>model4_pred <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(model4,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"edge_distance"</span>, <span class="st">"season"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">distance =</span> x, <span class="at">season =</span> group)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpredict</span>(model4,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"edge_distance"</span>, <span class="st">"season"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted probabilities of sp
+
+season: 2016
+
+edge_distance | Predicted |     95% CI
+--------------------------------------
+            0 |      0.48 | 0.33, 0.64
+          200 |      0.38 | 0.27, 0.50
+          350 |      0.31 | 0.22, 0.41
+          550 |      0.23 | 0.15, 0.32
+          750 |      0.16 | 0.09, 0.27
+         1100 |      0.09 | 0.03, 0.20
+
+season: 2019
+
+edge_distance | Predicted |     95% CI
+--------------------------------------
+            0 |      0.30 | 0.18, 0.44
+          200 |      0.22 | 0.14, 0.32
+          350 |      0.17 | 0.11, 0.25
+          550 |      0.12 | 0.07, 0.19
+          750 |      0.08 | 0.04, 0.15
+         1100 |      0.04 | 0.01, 0.11</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot visual</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sp_data,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> edge_distance,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> sp,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="fu">as.factor</span>(season)))<span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> model4_pred,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> distance,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> predicted))<span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Predicted Nest Box Occupancy of Swift Parrot"</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Swift Parrot Occupancy"</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Forest Edge Distance (meters)"</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Season"</span>,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"figure 1"</span>)<span class="sc">+</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">pnw_palette</span>(<span class="st">"Sunset2"</span>, <span class="dv">2</span>))<span class="sc">+</span> <span class="co">#color</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>()) <span class="co">#take out grid</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -456,21 +452,44 @@ model4  4 232.5485</code></pre>
 </section>
 <section id="i.-write-a-caption-for-your-figure." class="level2">
 <h2 class="anchored" data-anchor-id="i.-write-a-caption-for-your-figure.">i. Write a caption for your figure.</h2>
-<p>Include a figure number, title, description of the figure, and data citation.</p>
+<p>Figure 1. Predicted Nest Box Occupancy of Swift Parrot</p>
+<p>This figure shows the probability of a Swift Parrot occupying a nest box based on distance to forest edge separated by seasons (2016, 2019). The points are whether the nest was occupied or was empty color coded based on the season. The lines represent the probability of a nest box being occupied at that distance using a generalized linear model prediction with a binomial response variable.</p>
+<p>Data source: Stojanovic et al.&nbsp;(2020), “Do nest boxes breed the target species or its competitors?” Restoration Ecology.</p>
 </section>
-<section id="j.-calculate-model-predictions-4-points" class="level2">
-<h2 class="anchored" data-anchor-id="j.-calculate-model-predictions-4-points">j. Calculate model predictions (4 points)</h2>
+<section id="j.-calculate-model-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="j.-calculate-model-predictions">j. Calculate model predictions</h2>
 <p>Calculate the predicted probabilities of Swift Parrot nest box occupancy with 95% at 0 m from forest edge and 900 m from forest edge for each level in&nbsp;<code>season</code>.</p>
 <p>Show and annotate all code. Display the output.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mod4pp <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(model4,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"edge_distance [0,900]"</span>, <span class="st">"season"</span>))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>mod4pp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Predicted probabilities of sp
+
+season: 2016
+
+edge_distance | Predicted |     95% CI
+--------------------------------------
+            0 |      0.48 | 0.33, 0.64
+          900 |      0.12 | 0.06, 0.24
+
+season: 2019
+
+edge_distance | Predicted |     95% CI
+--------------------------------------
+            0 |      0.30 | 0.18, 0.44
+          900 |      0.06 | 0.03, 0.13</code></pre>
+</div>
+</div>
 </section>
-<section id="k.-interpret-your-results-16-points" class="level2">
-<h2 class="anchored" data-anchor-id="k.-interpret-your-results-16-points">k. Interpret your results (16 points)</h2>
-<p>Write 3-5 sentences summarizing what you found, making references to the figure you made in part h and the predictions you calculated in part j. Your summary should include your interpretation of:</p>
-<ul>
-<li><p>the predicted probability of occupancy at the forest edge (0 m) and farther away from the forest edge (900 m) between seasons</p></li>
-<li><p>the relationship between distance from forest edge and probability of occupancy</p></li>
-<li><p>the biology behind the trends you found - what explains the relationship between distance from forest edge and probability of Swift Parrot nest box occupancy?</p></li>
-</ul>
+<section id="k.-interpret-your-results" class="level2">
+<h2 class="anchored" data-anchor-id="k.-interpret-your-results">k. Interpret your results</h2>
+<p>Its been observed that distance to forest edge and the seasons have an impact on the probability of Swift Parrots occupying nest boxes, and we can reject the null hypothesis. Figure 1 shows a trend in the probability of occupancy, that the closer the nest box is to the forest edge, the higher the probability of a Swift Parrot occupying it. We can also see that there were more nest boxes occupied in 2016 than in 2019.</p>
+<p>According to the predicted probability table there was a 48% chance of Swift Parrot occupancy 0 meters from the forest edge in 2016, and a decrease to 30% in 2019.</p>
+<p>At 900 meters from the forest edge the probability of occupancy was 0.12% in 2016, and 0.06% in 2019.</p>
+<p>Biological trends in figure 1 show that Swift parrots prefer nest boxes closer to the forest edge, and have a higher rate of occupancy with nest boxes that are new instead of established. One hypothesis is that their less aggressive behavior could be a reason for low occupancy with established nest boxes.</p>
 </section>
 </section>
 <section id="problem-4.-affective-and-exploratory-visualizations" class="level1">
@@ -505,7 +524,7 @@ Thank you
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>I wanted to thank you for help this quarter, I truly feel like I learned an insane amount of coding. I did my best to knock the final out of the park in order to show that even with a few of stumbles I still had the capability to succeed in the class.</p>
+<p>I wanted to thank you for help this quarter, I truly feel like I learned an insane amount of coding. I did my best to knock the final out of the park in order to show that even with a few of stumbles I still had the capability to succeed and pass the class.</p>
 </div>
 </div>
 </section>
