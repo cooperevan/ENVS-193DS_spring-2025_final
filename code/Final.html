@@ -98,11 +98,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#b.-purpose-of-study" id="toc-b.-purpose-of-study" class="nav-link" data-scroll-target="#b.-purpose-of-study">b. Purpose of study</a></li>
   <li><a href="#c.-difference-in-seasons" id="toc-c.-difference-in-seasons" class="nav-link" data-scroll-target="#c.-difference-in-seasons">c.&nbsp;Difference in “seasons”</a></li>
   <li><a href="#d.-table-of-models" id="toc-d.-table-of-models" class="nav-link" data-scroll-target="#d.-table-of-models">d.&nbsp;Table of models</a></li>
-  <li><a href="#e.-run-the-models-8-points" id="toc-e.-run-the-models-8-points" class="nav-link" data-scroll-target="#e.-run-the-models-8-points">e. Run the models (8 points)</a></li>
+  <li><a href="#e.-run-the-models" id="toc-e.-run-the-models" class="nav-link" data-scroll-target="#e.-run-the-models">e. Run the models</a></li>
   <li><a href="#f.-check-the-diagnostics-6-points" id="toc-f.-check-the-diagnostics-6-points" class="nav-link" data-scroll-target="#f.-check-the-diagnostics-6-points">f.&nbsp;Check the diagnostics (6 points)</a></li>
-  <li><a href="#g.-select-the-best-model-6-points" id="toc-g.-select-the-best-model-6-points" class="nav-link" data-scroll-target="#g.-select-the-best-model-6-points">g. Select the best model (6 points)</a></li>
-  <li><a href="#h.-visualize-the-model-predictions-24-points" id="toc-h.-visualize-the-model-predictions-24-points" class="nav-link" data-scroll-target="#h.-visualize-the-model-predictions-24-points">h. Visualize the model predictions (24 points)</a></li>
-  <li><a href="#i.-write-a-caption-for-your-figure.-7-points" id="toc-i.-write-a-caption-for-your-figure.-7-points" class="nav-link" data-scroll-target="#i.-write-a-caption-for-your-figure.-7-points">i. Write a caption for your figure. (7 points)</a></li>
+  <li><a href="#g.-select-the-best-model" id="toc-g.-select-the-best-model" class="nav-link" data-scroll-target="#g.-select-the-best-model">g. Select the best model</a></li>
+  <li><a href="#h.-visualize-the-model-predictions" id="toc-h.-visualize-the-model-predictions" class="nav-link" data-scroll-target="#h.-visualize-the-model-predictions">h. Visualize the model predictions</a></li>
+  <li><a href="#i.-write-a-caption-for-your-figure." id="toc-i.-write-a-caption-for-your-figure." class="nav-link" data-scroll-target="#i.-write-a-caption-for-your-figure.">i. Write a caption for your figure.</a></li>
   <li><a href="#j.-calculate-model-predictions-4-points" id="toc-j.-calculate-model-predictions-4-points" class="nav-link" data-scroll-target="#j.-calculate-model-predictions-4-points">j. Calculate model predictions (4 points)</a></li>
   <li><a href="#k.-interpret-your-results-16-points" id="toc-k.-interpret-your-results-16-points" class="nav-link" data-scroll-target="#k.-interpret-your-results-16-points">k. Interpret your results (16 points)</a></li>
   </ul></li>
@@ -158,7 +158,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PNWColors)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DHARMa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DHARMa)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>[Rendered Output]</p>
 <section id="problem-1.-research-writing" class="level1">
@@ -203,16 +207,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # Groups:   year [6]
     year month mean_monthly_sst
    &lt;dbl&gt; &lt;ord&gt;            &lt;dbl&gt;
- 1  2018 Dec               15.6
- 2  2018 Feb               14.3
- 3  2018 Mar               13.5
- 4  2018 Aug               19.6
- 5  2018 Apr               12.8
- 6  2019 Apr               13.7
- 7  2019 Dec               15.0
- 8  2019 Mar               13.6
- 9  2019 Jun               15.8
-10  2019 May               14.3
+ 1  2018 Oct               18.5
+ 2  2018 Nov               17.9
+ 3  2018 May               13.6
+ 4  2018 Sep               18.2
+ 5  2018 Dec               15.6
+ 6  2019 May               14.3
+ 7  2019 Feb               14.1
+ 8  2019 Jun               15.8
+ 9  2019 Jan               14.7
+10  2019 Nov               16.8
 # ℹ 20 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show structure</span></span>
@@ -326,34 +330,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> nest_boxes <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(box, season, edge_distance, box_occupant) <span class="sc">|&gt;</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">box_occupant =</span> <span class="fu">as_factor</span>(box_occupant)) </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>(clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(box, season, edge_distance, box_occupant)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>sp_data <span class="ot">&lt;-</span> nest_boxes <span class="sc">|&gt;</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(box, season, edge_distance, sp)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>(clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   227 obs. of  4 variables:
  $ box          : chr  "boxrh00" "boxrh49" "boxrh55" "boxrh56" ...
  $ season       : int  2016 2016 2016 2016 2016 2016 2016 2019 2019 2019 ...
  $ edge_distance: int  287 35 84 128 152 92 51 222 160 145 ...
- $ box_occupant : Factor w/ 4 levels "common starling",..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+ $ box_occupant : chr  "common starling" "common starling" "common starling" "common starling" ...</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(clean_data, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        box season edge_distance    box_occupant
-1   boxrh70   2016           135     tree martin
-2   boxrh12   2019           697     tree martin
-3  boxrh117   2019           296 common starling
-4  boxrh134   2016           277    swift parrot
-5  boxrh128   2019           544     tree martin
-6   boxrh69   2016           115     tree martin
-7   boxrh95   2016           114    swift parrot
-8  boxrh135   2019           250    swift parrot
-9   boxrh42   2019           731     tree martin
-10  boxrh55   2019            84 common starling</code></pre>
+1  boxrh109   2016           435    swift parrot
+2  boxrh134   2016           277    swift parrot
+3   boxrh93   2019            40 common starling
+4   boxrh02   2016           866     tree martin
+5   boxrh12   2019           697     tree martin
+6   boxrh70   2016           135     tree martin
+7  boxrh116   2019           309 common starling
+8   boxrh69   2016           115     tree martin
+9  boxrh129   2019           577     tree martin
+10  boxrh09   2016           735    swift parrot</code></pre>
 </div>
 </div>
 </section>
-<section id="e.-run-the-models-8-points" class="level2">
-<h2 class="anchored" data-anchor-id="e.-run-the-models-8-points">e. Run the models (8 points)</h2>
+<section id="e.-run-the-models" class="level2">
+<h2 class="anchored" data-anchor-id="e.-run-the-models">e. Run the models</h2>
 <p>Write your code to run all your models. Do not display any output.</p>
 </section>
 <section id="f.-check-the-diagnostics-6-points" class="level2">
@@ -361,8 +368,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Check your diagnostics for all models using simulated residuals from the&nbsp;<code>DHARMa</code>&nbsp;package.</p>
 <p>Display the diagnostic plots for each model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#diagnistics</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -370,7 +377,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -378,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -386,7 +393,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">simulateResiduals</span>(model1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -396,16 +403,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="g.-select-the-best-model-6-points" class="level2">
-<h2 class="anchored" data-anchor-id="g.-select-the-best-model-6-points">g. Select the best model (6 points)</h2>
+<section id="g.-select-the-best-model" class="level2">
+<h2 class="anchored" data-anchor-id="g.-select-the-best-model">g. Select the best model</h2>
 <p>Using Akaike’s Information Criterion (AIC) from the&nbsp;<code>MuMIn</code>&nbsp;package, choose the best model.</p>
-<p>In text, write what the best model was (i.e.&nbsp;“The best model as determined by Akaike’s Information Criterion (AIC)…”).</p>
-<p>Use the predictors and the response variable to describe the model, not the model number that you assigned.</p>
+<p>The best model as determined by Akaike’s Information Criterion (AIC) is the saturated model (model 4). The response variable was if there was swift parrot occupancy using the nest box, and the predictors were the season (2016 or 2019) and distance to the edge of the forest.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(model1,</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>     model2,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>     model3,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>     model4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Choosing the best model</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(model1,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>     model2,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>     model3,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>     model4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       df     AICc
 model1  2 245.0324
@@ -415,19 +422,40 @@ model4  4 232.5485</code></pre>
 </div>
 </div>
 </section>
-<section id="h.-visualize-the-model-predictions-24-points" class="level2">
-<h2 class="anchored" data-anchor-id="h.-visualize-the-model-predictions-24-points">h. Visualize the model predictions (24 points)</h2>
+<section id="h.-visualize-the-model-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="h.-visualize-the-model-predictions">h. Visualize the model predictions</h2>
 <p>Create a plot showing model predictions with 95% confidence intervals and the underlying data.</p>
 <p>Show and annotate all code. Show the output.</p>
 <p>For full credit:</p>
 <ul>
 <li><p>make sure the x- and y-axis labels are written in full</p></li>
-<li><p>take out the gridlines</p></li>
+<li><p>take out the grid lines</p></li>
 <li><p>use colors that are different from the default</p></li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model4_pred <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(model4,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"edge_distance"</span>, <span class="st">"season"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">distance =</span> x, <span class="at">season =</span> group)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(model4_pred)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot visual</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sp_data,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> edge_distance,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> sp))<span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> model4_pred,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> distance,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> predicted))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Final_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="i.-write-a-caption-for-your-figure.-7-points" class="level2">
-<h2 class="anchored" data-anchor-id="i.-write-a-caption-for-your-figure.-7-points">i. Write a caption for your figure. (7 points)</h2>
+<section id="i.-write-a-caption-for-your-figure." class="level2">
+<h2 class="anchored" data-anchor-id="i.-write-a-caption-for-your-figure.">i. Write a caption for your figure.</h2>
 <p>Include a figure number, title, description of the figure, and data citation.</p>
 </section>
 <section id="j.-calculate-model-predictions-4-points" class="level2">
